@@ -63,7 +63,22 @@ class _MyHomePageState extends State<MyHomePage> {
           article.text,
           style: new TextStyle(fontSize: 24.0),
         ),
-        children: <Widget>[new Text("${article.commentsCount}")],
+        children: <Widget>[
+          new Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              new Text("${article.commentsCount}"),
+              new MaterialButton(
+                color: Colors.blue,
+                onPressed: () {},
+                child: new Text(
+                  "OPEN",
+                  style: new TextStyle(color: Colors.white),
+                ),
+              )
+            ],
+          )
+        ],
       ),
     );
   }
