@@ -41,7 +41,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
@@ -59,20 +58,12 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _buildItem(Article article) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: ListTile(
+      child: ExpansionTile(
         title: new Text(
           article.text,
           style: new TextStyle(fontSize: 24.0),
         ),
-        subtitle: new Text("${article.commentsCount}"),
-        onTap: () async {
-          //canLaunch returns a Future, so we need to start it inside
-          //an async - await block
-          final urlString = "http://${article.domain}";
-          if (await canLaunch(urlString)) {
-            launch(urlString);
-          }
-        },
+        children: <Widget>[new Text("${article.commentsCount}")],
       ),
     );
   }
