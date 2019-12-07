@@ -47,10 +47,15 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: new ListView(
-        children: _articles
-            .map((article) => Center(child: _buildItem(article)))
-            .toList(),
+      body: new RefreshIndicator(
+        onRefresh: () {
+          return new Future.delayed(const Duration(seconds: 1));
+        },
+        child: new ListView(
+          children: _articles
+              .map((article) => Center(child: _buildItem(article)))
+              .toList(),
+        ),
       ),
     );
   }
@@ -68,14 +73,15 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               new Text("${article.commentsCount}"),
-              new MaterialButton(
-                color: Colors.blue,
-                onPressed: () {},
-                child: new Text(
-                  "OPEN",
-                  style: new TextStyle(color: Colors.white),
-                ),
-              )
+              new IconButton(
+                  icon: new Icon(Icons.launch),
+                  color: Colors.blue,
+                  onPressed: () async {
+                    final urlString = "http:\\${article.domain}";
+                    if (await canLaunch(urlString)) {
+                      launch(urlString);
+                    }
+                  })
             ],
           )
         ],
